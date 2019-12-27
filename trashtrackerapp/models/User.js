@@ -11,10 +11,6 @@ var UserSchema = new Schema({
     type: String,
     unique: true
   },
-  email: {
-    type: String,
-    unique: true
-  },
   bikeridedistance: {
     type: Number,
     required: true
@@ -26,6 +22,14 @@ var UserSchema = new Schema({
   waterconserved: {
     type: Number,
     required: true
+  },
+  paperrecycled: {
+    type: Number,
+    required: true
+  },
+  userCreated: {
+    type: Date,
+    default: Date.now
   }
   // `notes` is an array that stores ObjectIds
   // The ref property links these ObjectIds to the Note model
