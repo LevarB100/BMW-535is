@@ -47,5 +47,16 @@
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+    <canvas class="background"></canvas>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.3/particles.min.js"></script>
+    <script>
+      window.onload = function() {
+        Particles.init({
+          selector: ".background",
+          connectParticles: true,
+          color: "#ffffff"
+        });
+      };
+    </script>
   </body>
 </html>

@@ -5,6 +5,7 @@ import axios from "axios";
 import UserContext from "../context/UserContext";
 import conversions from "../functions/conversions";
 import { Bar } from "react-chartjs-2";
+import { BottlesToFishSaved } from "../functions/conversions";
 
 //variable holding the metrics that go intothe table
 const Ttrack = props => (
@@ -25,6 +26,36 @@ function calculatePlasticTotals(ttrackerArray) {
   }
   return total;
 }
+
+function calculatewaterTotals(ttrackerArray) {
+  console.log("hit");
+  let total = 0;
+  for (let i = 0; i < ttrackerArray.length; i++) {
+    total += ttrackerArray[i].water_con;
+    console.log(ttrackerArray[i]);
+  }
+  return total;
+}
+
+function calculateEmissionsTotals(ttrackerArray) {
+  console.log("hit");
+  let total = 0;
+  for (let i = 0; i < ttrackerArray.length; i++) {
+    total += ttrackerArray[i].emission_con;
+    console.log(ttrackerArray[i]);
+  }
+  return total;
+}
+
+// function calculatePaperTotals(ttrackerArray) {
+//   console.log("hit");
+//   let total = 0;
+//   for (let i = 0; i < ttrackerArray.length; i++) {
+//     total += ttrackerArray[i].paper_con;
+//     console.log(ttrackerArray[i]);
+//   }
+//   return total;
+// }
 
 export default class ttracker1List extends Component {
   static contextType = UserContext;
@@ -47,10 +78,15 @@ export default class ttracker1List extends Component {
         console.log(response.data);
         this.context.setId(response.data[0]._id);
         const totalPlastics = calculatePlasticTotals(response.data);
+        const totalWater = calculatewaterTotals(response.data);
+        const totalEmissions = calculateEmissionsTotals(response.data);
         this.setState({
           ...this.state,
           ttracker: response.data,
-          plasticTotals: totalPlastics
+          plasticTotals: totalPlastics,
+          waterTotals: totalWater,
+          emissionTotal: totalEmissions
+
           // emissionTotals: calculateEmissionTotals(response.data)
         });
         // console.log(response.data[0]);
@@ -62,22 +98,28 @@ export default class ttracker1List extends Component {
       });
   }
 
-  data = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
-    datasets: [
-      {
-        label: "My First dataset",
-        backgroundColor: "rgba(255,99,132,0.2)",
-        borderColor: "rgba(255,99,132,1)",
-        borderWidth: 1,
-        hoverBackgroundColor: "rgba(255,99,132,0.4)",
-        hoverBorderColor: "rgba(255,99,132,1)",
-        data: [65, 59, 80, 81, 56, 55, 40]
-      }
-    ]
-  };
-
   render() {
+    console.log(this.state);
+    const data = {
+      labels: ["Water", "Emissions", "Plastic", "Paper"],
+      datasets: [
+        {
+          label: "Conservation Stats",
+          backgroundColor: "rgba(255,99,132,0.2)",
+          borderColor: "rgba(255,99,132,1)",
+          borderWidth: 1,
+          hoverBackgroundColor: "rgba(255,99,132,0.4)",
+          hoverBorderColor: "rgba(255,99,132,1)",
+          data: [
+            this.state.waterTotals,
+            this.state.emissionTotal,
+            this.state.plasticTotals,
+            this.state.paperTotals,
+            0
+          ]
+        }
+      ]
+    };
     return (
       <div>
         <h3>Consevation Tracker</h3>
@@ -98,16 +140,31 @@ export default class ttracker1List extends Component {
         </table>
         <div>
           <ul>
-            <li>Total Plastic Recycled{this.state.plasticTotals}</li>
+            <li>
+              Total Plastic Recycled {this.state.plasticTotals} bottles!!{" "}
+            </li>
+            <li>Total Water Recycled {this.state.waterTotals} gallons!!</li>
+            <li>Total miles ridden: {this.state.emissionTotal}</li>
           </ul>
+        </div>
+        <div id="chartdiv" class="col-lg-12">
           <Bar
-            data={this.data}
+            data={data}
             width={100}
-            height={50}
+            height={200}
             options={{
               maintainAspectRatio: false
             }}
           />
+        </div>
+        <div>
+          {" "}
+          <ul>
+            <li>
+              You have saved {BottlesToFishSaved(this.state.plasticTotals)}{" "}
+              fish!!!
+            </li>
+          </ul>
         </div>
       </div>
     );

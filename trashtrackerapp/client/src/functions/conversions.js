@@ -25,7 +25,7 @@ function waterBottlestoPounds(numWaterBottles) {
   return pounds;
 }
 
-let fishKilledPerLB = 1.227;
+let fishKilledPerLB = 0.0018;
 
 function savedFish(numOfPounds) {
   let fish = numOfPounds * fishKilledPerLB;
@@ -37,20 +37,20 @@ function co2BikeSavings(numOfMiles) {
   return gramsSaved;
 }
 
-function BottlesToFishSaved(numOfBottles) {
+export function BottlesToFishSaved(numOfBottles) {
   let lb = waterBottlestoPounds(numOfBottles);
   return savedFish(lb);
 }
 
-console.log(BottlesToFishSaved(30));
+// console.log(BottlesToFishSaved(this.state.totalPlastics));
 
 //1,100,000  sea animals die a year from plastic
 //448,000 tons of plastic in ocean
 //1 ton of plastic = 2.45 fish die
 //2000 lbs kill 2.45 fish
 
-module.exports = {
-  savedFish: savedFish,
-  co2BikeSavings: co2BikeSavings,
-  BottlesToFishSaved: BottlesToFishSaved
-};
+// module.exports = {
+//   savedFish: savedFish,
+//   co2BikeSavings: co2BikeSavings,
+//   BottlesToFishSaved: BottlesToFishSaved
+// };

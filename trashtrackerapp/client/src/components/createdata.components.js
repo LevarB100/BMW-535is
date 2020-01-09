@@ -134,7 +134,7 @@ export default class Createdata extends Component {
 
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
-            <label>Water Conserve Amount</label>
+            <label>Water Conserve Amount in Liters </label>
             <input
               type="text"
               className="form-control"
@@ -143,7 +143,7 @@ export default class Createdata extends Component {
             />
           </div>
           <div className="form-group">
-            <label>Bicycle Riding Distance</label>
+            <label>Bicycle Riding Distance in Miles</label>
             <input
               type="text"
               className="form-control"
@@ -152,7 +152,9 @@ export default class Createdata extends Component {
             />
           </div>
           <div className="form-group">
-            <label>Plastic Recylcled Amount</label>
+            <label>
+              Plastic Recylcled Amount (Number of Water Bottles Recycled)
+            </label>
             <input
               type="text"
               className="form-control"
@@ -161,7 +163,7 @@ export default class Createdata extends Component {
             />
           </div>
           <div className="form-group">
-            <label>Paper Recycled Amount</label>
+            <label>Paper Recycled Amount in Pounds</label>
             <input
               type="text"
               className="form-control"
