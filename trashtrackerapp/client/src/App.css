@@ -1,5 +1,10 @@
+body {
+  color: white;
+}
+
 .App {
   text-align: center;
+  text-decoration-color: azure;
 }
 
 .row {
@@ -8,8 +13,14 @@
 .col-sm-4 {
 }
 
+th {
+  color: azure;
+}
 h3 {
   color: white;
+}
+td {
+  text-decoration-color: azure;
 }
 
 label {
@@ -53,4 +64,8 @@ body {
   to {
     transform: rotate(360deg);
   }
+}
+
+.table {
+  color: white;
 }

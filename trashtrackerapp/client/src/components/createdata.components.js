@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { render } from "react-dom";
+import axios from "axios";
 
 export default class Createdata extends Component {
   constructor(props) {
@@ -52,6 +53,23 @@ export default class Createdata extends Component {
     console.log(`Plastic Conserve: ${this.state.plastic_con}`);
     console.log(`Paper Conserve: ${this.state.paper_con}`);
 
+    // Below is the variable (newttracker) containing the values from user form.
+    const newttracker = {
+      name: Math.random().toString(),
+      water_con: this.state.water_con,
+      emission_con: this.state.emission_con,
+      plastic_con: this.state.plastic_con,
+      paper_con: this.state.paper_con
+    };
+    // axios call making a "axios post request" to the back end containing new metrics to be ADDED to the database
+    axios
+      .post("/ttracker/add", newttracker, {
+        headers: {
+          Authorization: "Bearer " + localStorage.getItem("token")
+        }
+      })
+      .then(res => console.log(res.data));
+
     this.setState({
       water_con: "",
       emission_con: "",
@@ -60,10 +78,59 @@ export default class Createdata extends Component {
     });
   }
 
+  //let buttonU = document.getElementById("#update")
+
+  // Clickme() {
+  //   // alert(document.getElementById("ttId").value);
+  //   axios
+  //     .get("/ttracker/" + document.getElementById("ttId").value)
+  //     .then(response => {
+  //       console.log(response.data);
+
+  //       this.state.water_con = response.data.water_con;
+  //       this.state.emission_con = response.data.emission_con;
+  //       this.state.plastic_con = response.data.plastic_con;
+  //       this.state.paper_con = response.data.paper_con;
+
+  //       // this.props.setId(response.data[0]._id);
+  //       // this.setState({ ttracker: response.data });
+  //     })
+  //     .catch(function(error) {
+  //       console.log(error);
+  //     });
+  // }
+
+  // button.onClick(funcion(trackerToUpdateId) {
+  //get old data
+  getCurrentData(id) {
+    axios
+      .get("/ttracker/" + id)
+      .then(response => {
+        console.log(response.data);
+        // this.props.setId(response.data[0]._id);
+        // this.setState({ ttracker: response.data });
+      })
+      .catch(function(error) {
+        console.log(error);
+      });
+  }
+
+  //get new data
+
+  //add them together
+
+  //create a new updatedTrackerobj
+
+  //use axios send new obj to localhost:4000/ttracker/update/id
+
+  // })
+
   render() {
     return (
       <div style={{ MarginTop: 20 }}>
-        <h3> Input Data Page </h3>
+        {/* <h3> Input Data Page </h3>
+        <label>Lookup ID</label>
+        <input type="text" id="ttId" className="form-control" /> */}
 
         <form onSubmit={this.onSubmit}>
           <div className="form-group">
@@ -108,6 +175,9 @@ export default class Createdata extends Component {
               value="Create Data"
               className="btn btn-primary"
             />
+            <button onClick={this.Clickme} id="update">
+              update
+            </button>
           </div>
         </form>
       </div>
