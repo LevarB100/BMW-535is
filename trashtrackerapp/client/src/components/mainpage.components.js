@@ -3,7 +3,11 @@ import { render } from "react-dom";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import UserContext from "../context/UserContext";
-import conversions from "../functions/conversions";
+import conversions, {
+  PaperToTreesSaved,
+  GallonofOilSaved,
+  WaterSavedTree
+} from "../functions/conversions";
 import { Bar } from "react-chartjs-2";
 import { BottlesToFishSaved } from "../functions/conversions";
 
@@ -46,6 +50,15 @@ function calculateEmissionsTotals(ttrackerArray) {
   }
   return total;
 }
+function calculatePaperTotals(ttrackerArray) {
+  console.log("hit");
+  let total = 0;
+  for (let i = 0; i < ttrackerArray.length; i++) {
+    total += ttrackerArray[i].paper_con;
+    console.log(ttrackerArray[i]);
+  }
+  return total;
+}
 
 // function calculatePaperTotals(ttrackerArray) {
 //   console.log("hit");
@@ -80,12 +93,14 @@ export default class ttracker1List extends Component {
         const totalPlastics = calculatePlasticTotals(response.data);
         const totalWater = calculatewaterTotals(response.data);
         const totalEmissions = calculateEmissionsTotals(response.data);
+        const totalPaper = calculatePaperTotals(response.data);
         this.setState({
           ...this.state,
           ttracker: response.data,
           plasticTotals: totalPlastics,
           waterTotals: totalWater,
-          emissionTotal: totalEmissions
+          emissionTotals: totalEmissions,
+          paperTotals: totalPaper
 
           // emissionTotals: calculateEmissionTotals(response.data)
         });
@@ -101,7 +116,7 @@ export default class ttracker1List extends Component {
   render() {
     console.log(this.state);
     const data = {
-      labels: ["Water", "Emissions", "Plastic", "Paper"],
+      labels: ["Plastic", "Water", "Emissions", "Paper"],
       datasets: [
         {
           label: "Conservation Stats",
@@ -111,9 +126,9 @@ export default class ttracker1List extends Component {
           hoverBackgroundColor: "rgba(255,99,132,0.4)",
           hoverBorderColor: "rgba(255,99,132,1)",
           data: [
-            this.state.waterTotals,
-            this.state.emissionTotal,
             this.state.plasticTotals,
+            this.state.waterTotals,
+            this.state.emissionTotals,
             this.state.paperTotals,
             0
           ]
@@ -144,7 +159,8 @@ export default class ttracker1List extends Component {
               Total Plastic Recycled {this.state.plasticTotals} bottles!!{" "}
             </li>
             <li>Total Water Recycled {this.state.waterTotals} gallons!!</li>
-            <li>Total miles ridden: {this.state.emissionTotal}</li>
+            <li>Total miles ridden: {this.state.emissionTotals}</li>
+            <li>Total Paper Recycled {this.state.paperTotals} lbs</li>
           </ul>
         </div>
         <div id="chartdiv" class="col-lg-12">
@@ -163,6 +179,12 @@ export default class ttracker1List extends Component {
             <li>
               You have saved {BottlesToFishSaved(this.state.plasticTotals)}{" "}
               fish!!!
+            </li>
+            <li>
+              Because of your paper recyling efforts you saved the world{" "}
+              {PaperToTreesSaved(this.state.paperTotals)} trees,{" "}
+              {GallonofOilSaved(this.state.paperTotals)} gallons of oil and{" "}
+              {WaterSavedTree(this.state.paperTotals)} liters of water!!!{" "}
             </li>
           </ul>
         </div>

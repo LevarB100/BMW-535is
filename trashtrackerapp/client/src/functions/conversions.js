@@ -39,7 +39,7 @@ function co2BikeSavings(numOfMiles) {
 
 export function BottlesToFishSaved(numOfBottles) {
   let lb = waterBottlestoPounds(numOfBottles);
-  return savedFish(lb);
+  return savedFish(lb).toFixed(3);
 }
 
 // console.log(BottlesToFishSaved(this.state.totalPlastics));
@@ -54,3 +54,22 @@ export function BottlesToFishSaved(numOfBottles) {
 //   co2BikeSavings: co2BikeSavings,
 //   BottlesToFishSaved: BottlesToFishSaved
 // };
+
+let treeKilledPerlBpaper = 0.0085;
+let gallonOfOilPerlBpaper = 0.341;
+let literofWaterPerlBpaper = 13.25;
+
+export function PaperToTreesSaved(amountofPaper) {
+  let treesaved = amountofPaper * 0.0085;
+  return treesaved.toFixed(5);
+}
+
+export function GallonofOilSaved(amountofPaper) {
+  let oilsaved = amountofPaper * 0.341;
+  return oilsaved.toFixed(3);
+}
+
+export function WaterSavedTree(amountofPaper) {
+  let watersaved = amountofPaper * 13.25;
+  return watersaved.toFixed(3);
+}

@@ -9,6 +9,7 @@
       name="description"
       content="Web site created using create-react-app"
     />
+    <link rel="stylesheet" href="particlesstyle.css" />
     <link
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -40,13 +41,14 @@
     <!--
       This HTML file is a template.
       If you open it directly in the browser, you will see an empty page.
-
+     
       You can add webfonts, meta tags, or analytics to this file.
       The build step will place the bundled scripts into the <body> tag.
 
       To begin the development, run `npm start` or `yarn start`.
       To create a production bundle, use `npm run build` or `yarn build`.
     -->
+
     <canvas class="background"></canvas>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/particlesjs/2.2.3/particles.min.js"></script>
     <script>
@@ -54,7 +56,17 @@
         Particles.init({
           selector: ".background",
           connectParticles: true,
-          color: "#ffffff"
+          color: "#ffffff",
+          number: 475,
+          speed: 2,
+          size: 2,
+          line_linked: true,
+          distance: 120,
+          move: true
+        });
+        Interactivity.init({
+          event: onhover,
+          mode: repulse
         });
       };
     </script>

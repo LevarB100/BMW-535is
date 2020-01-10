@@ -76,6 +76,9 @@ export default class Createdata extends Component {
       plastic_con: "",
       paper_con: ""
     });
+    this.props.history.push("/mainpage.components");
+
+    // window.location.replace("/mainpage.components");
   }
 
   //let buttonU = document.getElementById("#update")
@@ -177,9 +180,6 @@ export default class Createdata extends Component {
               value="Create Data"
               className="btn btn-primary"
             />
-            <button onClick={this.Clickme} id="update">
-              update
-            </button>
           </div>
         </form>
       </div>
