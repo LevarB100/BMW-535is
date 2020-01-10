@@ -98,21 +98,15 @@ class App extends React.Component {
               <Link to={`/update/${this.state.currentID}`} className="nav-link">
                 [Update Challenge]
               </Link>
-              <Link to="/edit/:id" className="nav-link">
+              {/* <Link to="/edit/:id" className="nav-link">
                 [Your Results!]
-              </Link>
+              </Link> */}
             </ul>
             <button onClick={this.logUserOut} id="logout">
               Logout
             </button>
           </nav>
-          {/* <Hellobootstrap />
-          <Route
-            path="/"
-            exact
-            render={routeProps => (
-              <LoginPage {...routeProps} setId={this.setId} />
-            )} */}
+          {<Hellobootstrap />}
           {/* // using the provider idea: context provider to wrap routes */}
           <UserContext.Provider
             value={{

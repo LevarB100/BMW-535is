@@ -75,10 +75,7 @@ export default class Createdata extends Component {
       emission_con: "",
       plastic_con: "",
       paper_con: ""
-    });
-    this.props.history.push("/mainpage.components");
-
-    // window.location.replace("/mainpage.components");
+    }); 
   }
 
   //let buttonU = document.getElementById("#update")

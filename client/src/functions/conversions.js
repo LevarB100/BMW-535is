@@ -39,7 +39,7 @@ function co2BikeSavings(numOfMiles) {
 
 export function BottlesToFishSaved(numOfBottles) {
   let lb = waterBottlestoPounds(numOfBottles);
-  return savedFish(lb).toFixed(3);
+  return savedFish(lb).toFixed(8);
 }
 
 // console.log(BottlesToFishSaved(this.state.totalPlastics));
