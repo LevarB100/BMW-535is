@@ -6,7 +6,6 @@ const mongoose = require("mongoose");
 const authWare = require("./middleware/authware");
 const ttrackRoutes = express.Router();
 const PORT = process.env.PORT || 4000;
-​
 const path = require("path");
 ​
 let ttrack = require("./models");
@@ -18,7 +17,8 @@ if (process.env.NODE_ENV === "production") {
 	app.use(express.static(path.join(__dirname, "../client/build")));
 }
 ​
-mongoose.connect("mongodb://127.0.0.1:27017/ttracker", {
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/ttracker";
+mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true
 });
 const connection = mongoose.connection;
