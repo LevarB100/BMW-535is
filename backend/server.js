@@ -7,28 +7,29 @@ const authWare = require("./middleware/authware");
 const ttrackRoutes = express.Router();
 const PORT = process.env.PORT || 4000;
 const path = require("path");
-​
+
 let ttrack = require("./models");
-​
+
 app.use(cors());
 app.use(bodyParser.json());
-​
+
 if (process.env.NODE_ENV === "production") {
-	app.use(express.static(path.join(__dirname, "../client/build")));
+  app.use(express.static(path.join(__dirname, "../client/build")));
 }
-​
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/ttracker";
+
+const MONGODB_URI =
+  process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/ttracker";
 mongoose.connect(MONGODB_URI, {
   useNewUrlParser: true
 });
 const connection = mongoose.connection;
-​
+
 connection.once("open", function() {
   console.log("Mongodb database connection established succesfully");
 });
-​
+
 require("./routes/api-routes.js")(app);
-​
+
 ttrackRoutes.route("/").get(authWare, function(req, res) {
   console.log(req.user.toObject());
   ttrack.metric.find(
@@ -44,7 +45,7 @@ ttrackRoutes.route("/").get(authWare, function(req, res) {
     }
   );
 });
-​
+
 ttrackRoutes.route("/:id").get(authWare, function(req, res) {
   let id = req.params.id;
   track1.userId = req.user._id;
@@ -52,7 +53,7 @@ ttrackRoutes.route("/:id").get(authWare, function(req, res) {
     res.json(ttrack1);
   });
 });
-​
+
 ttrackRoutes.route("/add").post(authWare, function(req, res) {
   let ttrack1 = req.body;
   console.log(ttrack1);
@@ -66,7 +67,7 @@ ttrackRoutes.route("/add").post(authWare, function(req, res) {
       res.status(400).send("adding new ttrack failed");
     });
 });
-​
+
 ttrackRoutes.route("/update/:id").post(function(req, res) {
   ttrack.metric.findByIdAndUpdate(req.params.id, { $inc: req.body }, function(
     err,
@@ -76,15 +77,15 @@ ttrackRoutes.route("/update/:id").post(function(req, res) {
     res.json("TTrack updated");
   });
 });
-​
+
 app.use("/ttracker", ttrackRoutes);
-​
+
 if (process.env.NODE_ENV === "production") {
-	app.get("*", function(req, res) {
-        res.json(path.join(__dirname, "../client/build/index.html"));
-	});
+  app.get("*", function(req, res) {
+    res.json(path.join(__dirname, "../client/build/index.html"));
+  });
 }
-​
+
 app.listen(PORT, function() {
   console.log("server is running brah on PORT" + PORT);
 });
